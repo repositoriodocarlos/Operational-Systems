@@ -1,0 +1,65 @@
+package controller;
+
+import java.util.concurrent.Semaphore;
+
+public class ThreadCarro {
+	private int idCarro;
+	private Semaphore semaforo;
+	private String sentido;
+	
+	public ThreadCarro(int idCarro, Semaphore semaforo){
+		this.idCarro = idCarro;
+		this.semaforo = semaforo;
+	}
+	
+	public void run(){
+		try {
+			semaforo.acquire();
+			andar();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		finally{
+			semaforo.release();
+		}
+	}
+	
+	private void andar(){
+		switch (idCarro){
+		case 1:
+			sentido = "a direita";
+			System.out.println("O carro " + idCarro + " está andando para " + sentido);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			break;
+		case 2:
+			System.out.println("O carro " + idCarro + " está andando para cima.");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			break;
+		case 3:
+			System.out.println("O carro " + idCarro + " está andando para a esquerda.");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			break;
+		case 4:
+			System.out.println("O carro " + idCarro + " está andando para baixo.");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			break;
+		}			
+	}
+	
+}
